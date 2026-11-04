@@ -1,7 +1,7 @@
 #include <iostream> #include <string> #include <vector> using namespace std;
-// Preprocessor macros #define ZOO_NAME "Smart Zoo" #define INITIAL_HEALTH 100 #define DEBUG_MODE
+#define ZOO_NAME "Smart Zoo" #define INITIAL_HEALTH 100 #define DEBUG_MODE
 #ifdef DEBUG_MODE #define DEBUG_LOG(message) cout << "[DEBUG] " << message << endl #else #define DEBUG_LOG(message) #endif
-// Base class class Animal { protected: string name; int age; int health;
+class Animal { protected: string name; int age; int health;
 public: Animal(string name, int age) { this->name = name; this->age = age; health = INITIAL_HEALTH; DEBUG_LOG("Animal created: " << name); }
 virtual void showInfo() {
     cout << "Name: " << name << endl;
@@ -24,6 +24,7 @@ void heal() {
 void takeDamage(int damage) {
     health -= damage;
     if (health < 0) health = 0;
+
     DEBUG_LOG(name << " received damage: " << damage);
     DEBUG_LOG(name << " health set to " << health);
 
@@ -43,7 +44,7 @@ string getName() const {
 
 virtual ~Animal() {}
 };
-// Lion class class Lion : public Animal { private: int power;
+class Lion : public Animal { private: int power;
 public: Lion(string name, int age, int power) : Animal(name, age) { this->power = power; }
 void showInfo() override {
     cout << "Animal: Lion" << endl;
@@ -55,7 +56,7 @@ void makeSound() override {
     cout << "Roar!" << endl;
 }
 };
-// Elephant class class Elephant : public Animal { private: int weight;
+class Elephant : public Animal { private: int weight;
 public: Elephant(string name, int age, int weight) : Animal(name, age) { this->weight = weight; }
 void showInfo() override {
     cout << "Animal: Elephant" << endl;
@@ -67,7 +68,7 @@ void makeSound() override {
     cout << "Trumpet!" << endl;
 }
 };
-// Parrot class class Parrot : public Animal { private: int wordsKnown;
+class Parrot : public Animal { private: int wordsKnown;
 public: Parrot(string name, int age, int wordsKnown) : Animal(name, age) { this->wordsKnown = wordsKnown; }
 void showInfo() override {
     cout << "Animal: Parrot" << endl;
@@ -80,7 +81,7 @@ void makeSound() override {
     wordsKnown++;
 }
 };
-// ZooKeeper class class ZooKeeper { private: string name; int experience;
+class ZooKeeper { private: string name; int experience;
 public: ZooKeeper(string name, int experience) { this->name = name; this->experience = experience; }
 void feedAnimal(Animal* animal) {
     DEBUG_LOG(name << " feeds " << animal->getName());
@@ -94,11 +95,10 @@ void healAnimal(Animal* animal) {
 
 void showInfo() {
     cout << "ZooKeeper: " << name << endl;
-    cout << "Experience: " << experience
-         << " years" << endl;
+    cout << "Experience: " << experience << " years" << endl;
 }
 };
-// Main function int main() { cout << "Welcome to " << ZOO_NAME << endl << endl;
+int main() { cout << "Welcome to " << ZOO_NAME << endl << endl;
 ZooKeeper keeper("John", 5);
 
 Lion* lion = new Lion("Leo", 5, 80);
